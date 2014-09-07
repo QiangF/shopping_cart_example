@@ -1,6 +1,7 @@
 import csv
+import abc
 
-from cart._compatibility import utf8
+from cart._compatibility import utf8, use_metaclass
 
 class MalformedCSV(Exception):
     """
@@ -71,5 +72,15 @@ class Cart(object):
                                            len(self._product_prices), self.price)
 
 
-class Offer(object):
-    pass
+class Offer(use_metaclass(abc.ABCMeta)):
+    @abc.abstractmethod
+    def discount(self, cart):
+        """
+        Returns a price discount as a simple float value.
+        """
+    @classmethod
+    def __subclasshook__(cls, C):
+        if cls is Offer:
+            if any("discount" in B.__dict__ for B in C.__mro__):
+                return True
+        return NotImplemented

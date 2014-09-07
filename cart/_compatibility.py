@@ -14,3 +14,10 @@ def utf8(string):
     elif not isinstance(string, unicode):
         return unicode(str(string), 'UTF-8')
     return string
+
+
+def use_metaclass(meta, *bases):
+    """ Create a class with a metaclass. """
+    if not bases:
+        bases = (object,)
+    return meta("HackClass", bases, {})
