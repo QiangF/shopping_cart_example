@@ -9,7 +9,6 @@ import pytest
 # ---------
 #  cart_from_csv tests
 # ---------
-
 def test_valid_cart_from_csv():
     _cart = cart.cart_from_csv('test/cart_files/default_cart.csv')
     assert _cart._product_prices == {'apple': 0.15,
@@ -32,16 +31,21 @@ def test_invalid_cart_from_csv_file():
     with pytest.raises(cart.MalformedCSV):
         cart.cart_from_csv('test/cart_files/invalid_cart.csv')
 
+
 # ---------
 #  Cart tests
 # ---------
-
 def test_add_to_cart():
-    def content(prices, name, quantity):
+    def _cart(prices, name, quantity):
         c = cart.Cart(prices)
         c.add_to_cart(name, quantity)
-        return c._added_products
+        return c
 
-    assert content({'apple': 1.0}, 'apple', 2) == {'apple', 2}
+    assert _cart({'apple': 1.0}, 'apple', 2)._added_products == {'apple': 2}
     with pytest.raises(KeyError):
-        assert content({}, 'apple', 2) == {'apple', 2}
+        _cart({}, 'apple', 2)
+
+    # Multiple adds of apples
+    c = _cart({'apple': 1.0}, 'apple', 2)
+    c.add_to_cart('apple', 2)
+    assert c._added_products == {'apple': 4}
