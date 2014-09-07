@@ -18,32 +18,33 @@ class XForY(cart.Offer):
         # I know that accessing protected attributes is not proper. However,
         # here it makes actually sense: Otherwise I would have to expand the
         # public API.
-        cart._product_prices
+        quantity = cart._added_products[self._product_name]
+        discounts_on = int(float(quantity) / self._x) * (self._x - self._y)
+        return discounts_on * cart._product_prices[self._product_name]
 
 
-class ThreeForTwo(cart.Offer):
+class ThreeForTwo(XForY):
     """
     Buy three, pay for two.
 
     >>> c = cart.Cart({'strawberries': 1})
-    >>> c.add_to_cart('strawberries', 1)
-    >>> assert c.price == 1
-    >>> c.add_to_cart('strawberries', 1)
+    >>> c.add_to_cart('strawberries', 3)
+    >>> assert c.price == 3
+    >>> c.add_offer(ThreeForTwo('strawberries'))
     >>> assert c.price == 2
-    >>> c.add_to_cart('strawberries', 1)
-    >>> assert c.price == 2
-    >>> c.add_to_cart('strawberries', 1)
+    >>> c.add_to_cart('strawberries', 1)  # Four strawberries
     >>> assert c.price == 3
     """
     def __init__(self, product_name):
-        super(ThreeForTwo, self).__init__(product_name, 2, 3)
+        super(ThreeForTwo, self).__init__(product_name, 3, 2)
 
 
-class TwoForOne(cart.Offer):
+class TwoForOne(XForY):
     """
     Buy two, pay for one.
 
     >>> c = cart.Cart({'icecream': 1})
+    >>> c.add_offer(TwoForOne('icecream'))
     >>> c.add_to_cart('icecream', 1)
     >>> assert c.price == 1
     >>> c.add_to_cart('icecream', 1)
@@ -54,4 +55,4 @@ class TwoForOne(cart.Offer):
     >>> assert c.price == 2
     """
     def __init__(self, product_name):
-        super(TwoForOne, self).__init__(product_name, 1, 2)
+        super(TwoForOne, self).__init__(product_name, 2, 1)

@@ -49,6 +49,9 @@ class Cart(object):
         """
         :type offer: :py:class:`Offer`
         """
+        # It's possible to add multiple offers of the same type. This might
+        # make sense, but it could also lead to strange - even negative -
+        # prices. We're trusting the people who are using the API.
         self._offers.append(offer)
 
     def add_to_cart(self, product_name, quantity):
@@ -63,8 +66,13 @@ class Cart(object):
     @property
     def price(self):
         price = 0
+        # First calculate the normal price.
         for product_name, quantity in self._added_products.items():
             price += self._product_prices[product_name] * quantity
+
+        # Apply discounts.
+        for offer in self._offers:
+            price -= offer.discount(self)
         return price
 
     def __repr__(self):
@@ -78,6 +86,7 @@ class Offer(use_metaclass(abc.ABCMeta)):
         """
         Returns a price discount as a simple float value.
         """
+
     @classmethod
     def __subclasshook__(cls, C):
         if cls is Offer:
