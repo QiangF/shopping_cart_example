@@ -29,11 +29,14 @@ class ThreeForTwo(XForY):
 
     >>> c = cart.Cart({'strawberries': 1})
     >>> c.add_to_cart('strawberries', 3)
-    >>> assert c.price == 3
+    >>> c.price
+    3
     >>> c.add_offer(ThreeForTwo('strawberries'))
-    >>> assert c.price == 2
+    >>> c.price
+    2
     >>> c.add_to_cart('strawberries', 1)  # Four strawberries
-    >>> assert c.price == 3
+    >>> c.price
+    3
     """
     def __init__(self, product_name):
         super(ThreeForTwo, self).__init__(product_name, 3, 2)
@@ -46,13 +49,17 @@ class TwoForOne(XForY):
     >>> c = cart.Cart({'icecream': 1})
     >>> c.add_offer(TwoForOne('icecream'))
     >>> c.add_to_cart('icecream', 1)
-    >>> assert c.price == 1
+    >>> c.price
+    1
     >>> c.add_to_cart('icecream', 1)
-    >>> assert c.price == 1
+    >>> c.price
+    1
     >>> c.add_to_cart('icecream', 1)
-    >>> assert c.price == 2
+    >>> c.price
+    2
     >>> c.add_to_cart('icecream', 1)
-    >>> assert c.price == 2
+    >>> c.price
+    2
     """
     def __init__(self, product_name):
         super(TwoForOne, self).__init__(product_name, 2, 1)
@@ -65,13 +72,17 @@ class PercentForOther(cart.Offer):
     >>> c = cart.Cart({'snickers': 1, 'mars': 1})
     >>> c.add_to_cart('mars', 1)
     >>> c.add_to_cart('snickers', 1)
-    >>> assert c.price == 2
+    >>> c.price
+    2
     >>> c.add_offer(PercentForOther('mars', 'snickers', 0.2))
-    >>> assert c.price == 1.8
+    >>> c.price
+    1.8
     >>> c.add_to_cart('snickers', 1)
-    >>> assert c.price == 2.8
+    >>> c.price
+    2.8
     >>> c.add_to_cart('mars', 2)
-    >>> assert c.price == 4.6
+    >>> c.price
+    4.6
     """
     def __init__(self, product_name, reduction_product, percentage):
         self._product_name = product_name
