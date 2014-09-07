@@ -1,0 +1,10 @@
+*~
+*.swp
+*.swo
+*.pyc
+.ropeproject
+.tox
+.coveralls.yml
+.coverage
+/docs/_build/
+cart.egg-info/
