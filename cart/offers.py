@@ -56,3 +56,30 @@ class TwoForOne(XForY):
     """
     def __init__(self, product_name):
         super(TwoForOne, self).__init__(product_name, 2, 1)
+
+
+class PercentForOther(cart.Offer):
+    """
+    Buy something and get a price reduction on something else, for example:
+
+    >>> c = cart.Cart({'snickers': 1, 'mars': 1})
+    >>> c.add_to_cart('mars', 1)
+    >>> c.add_to_cart('snickers', 1)
+    >>> assert c.price == 2
+    >>> c.add_offer(PercentForOther('mars', 'snickers', 0.2))
+    >>> assert c.price == 1.8
+    >>> c.add_to_cart('snickers', 1)
+    >>> assert c.price == 2.8
+    >>> c.add_to_cart('mars', 2)
+    >>> assert c.price == 4.6
+    """
+    def __init__(self, product_name, reduction_product, percentage):
+        self._product_name = product_name
+        self._reduction_product = reduction_product
+        self._percentage = percentage
+
+    def discount(self, cart):
+        product_quantity = cart._added_products[self._product_name]
+        red_product_quantity = cart._added_products[self._reduction_product]
+        actual_reductions = min(product_quantity, red_product_quantity)
+        return actual_reductions * self._percentage
