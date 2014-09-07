@@ -2,6 +2,13 @@ import csv
 
 from cart._compatibility import utf8
 
+class MalformedCSV(Exception):
+    """
+    A price definition file should contain ``name,product`` file, separated
+    by a comma.
+    """
+
+
 def cart_from_csv(csv_file_path):
     """
     Reads a CSV file with product names and prices and returns a shopping cart.
@@ -18,6 +25,9 @@ def cart_from_csv(csv_file_path):
     prices = {}
     with open(csv_file_path) as csvfile:
         for i, row in enumerate(csv.reader(csvfile, delimiter=',')):
+            if len(row) != 2:
+                raise MalformedCSV('Each CSV row should contain exactly 2'
+                                   '  rows, not %s. -> name,price')
             prices[utf8(row[0])] = float(row[1])
     return Cart(prices)
 
