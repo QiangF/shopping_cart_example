@@ -50,8 +50,14 @@ class Cart(object):
         """
         self._offers.append(offer)
 
-    def add_to_cart(self, product_name, price):
-        pass
+    def add_to_cart(self, product_name, quantity):
+        if product_name not in self._product_prices:
+            raise KeyError('')
+
+        try:
+            self._added_products[product_name] += quantity
+        except KeyError:
+            self._added_products[product_name] = quantity
 
     @property
     def price(self):
