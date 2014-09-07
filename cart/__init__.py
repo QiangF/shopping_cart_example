@@ -1,3 +1,7 @@
+import csv
+
+from cart._compatibility import utf8
+
 def cart_from_csv(csv_file_path):
     """
     Reads a CSV file with product names and prices and returns a shopping cart.
@@ -11,9 +15,11 @@ def cart_from_csv(csv_file_path):
     :type csv_file_path: str
     :rtype: :py:class:`Cart`
     """
-    with open(csv_file_path) as f:
-        f.read()
-    return Cart([])
+    prices = {}
+    with open(csv_file_path) as csvfile:
+        for i, row in enumerate(csv.reader(csvfile, delimiter=',')):
+            prices[utf8(row[0])] = float(row[1])
+    return Cart(prices)
 
 
 class Cart(object):
