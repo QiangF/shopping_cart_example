@@ -1,3 +1,26 @@
+"""
+This is a very simple example of a shopping cart. It's well documented and
+tested.
+
+You can use it like this:
+
+    >>> # Create a shopping cart with a price list
+    >>> cart = Cart({'banana': 1.0, 'apple': 2.0})
+    >>> cart.add_to_cart('banana', 1)
+    >>> cart.price
+    1.0
+    >>> cart.add_to_cart('apple', 3)
+    >>> cart.price
+    7.0
+
+You can specify discounts:
+
+    >>> from cart.offers import ThreeForTwo
+    >>> cart.add_offer(ThreeForTwo('apple'))
+    >>> cart.price
+    5.0
+"""
+
 import csv
 import abc
 

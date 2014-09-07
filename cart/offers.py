@@ -1,5 +1,5 @@
 """
-``cart.Offer`` implementations.
+:py:class:`cart.Offer` implementations.
 """
 
 import cart
