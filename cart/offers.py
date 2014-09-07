@@ -18,7 +18,7 @@ class XForY(cart.Offer):
         # I know that accessing protected attributes is not proper. However,
         # here it makes actually sense: Otherwise I would have to expand the
         # public API.
-        quantity = cart._added_products[self._product_name]
+        quantity = cart._shopping_list[self._product_name]
         discounts_on = int(float(quantity) / self._x) * (self._x - self._y)
         return discounts_on * cart._product_prices[self._product_name]
 
@@ -79,7 +79,7 @@ class PercentForOther(cart.Offer):
         self._percentage = percentage
 
     def discount(self, cart):
-        product_quantity = cart._added_products[self._product_name]
-        red_product_quantity = cart._added_products[self._reduction_product]
+        product_quantity = cart._shopping_list[self._product_name]
+        red_product_quantity = cart._shopping_list[self._reduction_product]
         actual_reductions = min(product_quantity, red_product_quantity)
         return actual_reductions * self._percentage

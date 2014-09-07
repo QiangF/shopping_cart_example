@@ -66,7 +66,7 @@ class Cart(object):
     def __init__(self, product_prices):
         self._product_prices = product_prices
         self._offers = []
-        self._added_products = {}
+        self._shopping_list = {}
 
     def add_offer(self, offer):
         """
@@ -82,15 +82,15 @@ class Cart(object):
             raise KeyError('')
 
         try:
-            self._added_products[product_name] += quantity
+            self._shopping_list[product_name] += quantity
         except KeyError:
-            self._added_products[product_name] = quantity
+            self._shopping_list[product_name] = quantity
 
     @property
     def price(self):
         price = 0
         # First calculate the normal price.
-        for product_name, quantity in self._added_products.items():
+        for product_name, quantity in self._shopping_list.items():
             price += self._product_prices[product_name] * quantity
 
         # Apply discounts.

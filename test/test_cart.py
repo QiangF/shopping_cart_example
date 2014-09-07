@@ -41,14 +41,14 @@ def test_add_to_cart():
         c.add_to_cart(name, quantity)
         return c
 
-    assert _cart({'apple': 1.0}, 'apple', 2)._added_products == {'apple': 2}
+    assert _cart({'apple': 1.0}, 'apple', 2)._shopping_list == {'apple': 2}
     with pytest.raises(KeyError):
         _cart({}, 'apple', 2)
 
     # Multiple adds of apples
     c = _cart({'apple': 1.0}, 'apple', 2)
     c.add_to_cart('apple', 2)
-    assert c._added_products == {'apple': 4}
+    assert c._shopping_list == {'apple': 4}
 
 
 def test_cart_price():
