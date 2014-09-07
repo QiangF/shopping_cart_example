@@ -61,7 +61,10 @@ class Cart(object):
 
     @property
     def price(self):
-        return 0
+        price = 0
+        for product_name, quantity in self._added_products.items():
+            price += self._product_prices[product_name] * quantity
+        return price
 
     def __repr__(self):
         return '<%s: %s products; %s$>' % (type(self).__class__.__name__,
