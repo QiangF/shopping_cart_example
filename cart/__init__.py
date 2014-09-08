@@ -102,7 +102,7 @@ class Cart(object):
         return price
 
     def __repr__(self):
-        return '<%s: %s products; %s$>' % (type(self).__class__.__name__,
+        return '<%s: %s products; %s$>' % (type(self).__name__,
                                            len(self._product_prices), self.price)
 
 
