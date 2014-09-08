@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import cart
-from cart._compatibility import utf8
+from cart._compatibility import utf8, is_py3
 
 import pytest
 
@@ -23,7 +23,11 @@ def test_unicode_cart_from_csv():
 
 
 def test_non_existing_cart_from_csv_file():
-    with pytest.raises(FileNotFoundError):
+    if is_py3:
+        error = FileNotFoundError
+    else:
+        error = IOError
+    with pytest.raises(error):
         cart.cart_from_csv('test/cart_files/inexistant.csv')
 
 
