@@ -2,6 +2,7 @@
 
 import cart
 from cart._compatibility import utf8, is_py3
+from cart import offers
 
 import pytest
 
@@ -62,3 +63,18 @@ def test_cart_price():
     assert c.price == 4
     c.add_to_cart('a', 1)
     assert c.price == 5
+
+
+# ---------
+#  cart.Offer tests
+# ---------
+
+def test_offer_type():
+    assert isinstance(offers.ThreeForTwo('a'), cart.Offer)
+
+    class Something(object):
+        def discount(self):
+            pass
+
+    assert isinstance(Something(), cart.Offer)
+    assert not isinstance(object(), cart.Offer)
