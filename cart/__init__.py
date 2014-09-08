@@ -28,6 +28,7 @@ import abc
 
 from cart._compatibility import utf8, use_metaclass
 
+
 class MalformedCSV(Exception):
     """
     A price definition file should contain ``name,product`` file, separated
