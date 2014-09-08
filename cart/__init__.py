@@ -21,6 +21,8 @@ You can specify discounts:
     5.0
 """
 
+__version__ = '0.1.0'
+
 import csv
 import abc
 
