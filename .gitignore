@@ -8,3 +8,5 @@
 .coverage
 /docs/_build/
 cart.egg-info/
+MANIFEST
+.cache
