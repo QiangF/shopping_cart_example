@@ -1,13 +1,13 @@
 ###################################
-Cart - A simple shopping cart demo.
+cart - A simple shopping cart demo.
 ###################################
 
-.. image:: https://secure.travis-ci.org/davidhalter-archive/cart.png?branch=master
-    :target: http://travis-ci.org/davidhalter-archive/cart
+.. image:: https://secure.travis-ci.org/davidhalter-archive/shopping_cart_example.png?branch=master
+    :target: http://travis-ci.org/davidhalter-archive/shopping_cart_example
     :alt: Travis-CI build status
 
-.. image:: https://coveralls.io/repos/davidhalter-archive/cart/badge.png?branch=master
-    :target: https://coveralls.io/r/davidhalter-archive/cart
+.. image:: https://coveralls.io/repos/davidhalter-archive/shopping_cart_example/badge.png?branch=master
+    :target: https://coveralls.io/r/davidhalter-archive/shopping_cart_example
     :alt: Coverage Status
 
 ``cart`` is a small project to show how setting up a proper Python project
